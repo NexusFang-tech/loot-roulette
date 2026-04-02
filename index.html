@@ -14,8 +14,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;b
 #grid-canvas{position:fixed;inset:0;z-index:0;width:100%;height:100%}
 .app{position:relative;z-index:1;max-width:960px;margin:0 auto;padding:24px 20px}
 h1{font-family:'Orbitron',sans-serif;font-size:28px;letter-spacing:4px;color:var(--cyan);text-shadow:0 0 20px rgba(0,238,255,0.5);margin-bottom:4px}
-.subtitle{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:2px;margin-bottom:20px}
-.slabel{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
+.sub{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:2px;margin-bottom:20px}
+.slbl{font-family:'Orbitron',sans-serif;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
 .mbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
 .mbtn{font-family:'Share Tech Mono',monospace;font-size:11px;padding:6px 12px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;border-radius:3px;transition:all .15s}
 .mbtn:hover{border-color:var(--cyan);color:var(--cyan)}
@@ -33,9 +33,9 @@ h1{font-family:'Orbitron',sans-serif;font-size:28px;letter-spacing:4px;color:var
 .slot.locked{border-color:var(--cyan);box-shadow:0 0 15px rgba(0,238,255,0.15)}
 .slot.locked .slot-value{color:var(--cyan);text-shadow:0 0 8px rgba(0,238,255,0.4)}
 .rarity{display:inline-block;font-family:'Orbitron',sans-serif;font-size:9px;padding:2px 8px;border-radius:3px;margin-top:4px;letter-spacing:1px;text-transform:uppercase}
-.r-common{background:rgba(180,180,180,0.15);color:#aaa}.r-uncommon{background:rgba(0,200,0,0.15);color:#0c0}.r-rare{background:rgba(0,100,255,0.15);color:#44aaff}.r-epic{background:rgba(160,32,240,0.15);color:#bb66ff}.r-legendary{background:rgba(255,170,0,0.2);color:#ffaa00}.r-mythic{background:rgba(255,215,0,0.2);color:#ffd700;border:1px solid rgba(255,215,0,0.3)}
+.r-common{background:rgba(180,180,180,0.15);color:#aaa}.r-uncommon{background:rgba(0,200,0,0.15);color:#0c0}.r-rare{background:rgba(0,100,255,0.15);color:#44aaff}.r-epic{background:rgba(160,32,240,0.15);color:#bb66ff}.r-legendary{background:rgba(255,170,0,0.2);color:#ffaa00}.r-mythic{background:rgba(255,215,0,0.2);color:#ffd700;border:1px solid rgba(255,215,0,0.3)}.r-exotic{background:rgba(0,238,255,0.15);color:#00eeff;border:1px solid rgba(0,238,255,0.3)}
 .ch{background:rgba(13,0,32,0.85);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:18px}
-.chlab{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
+.chlbl{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
 .chtxt{font-size:18px;font-weight:600}
 .diff{display:inline-block;font-family:'Orbitron',sans-serif;font-size:9px;padding:2px 10px;border-radius:3px;margin-top:6px;letter-spacing:1px;text-transform:uppercase}
 .d-easy{background:rgba(0,200,0,0.15);color:#0c0}.d-medium{background:rgba(255,170,0,0.15);color:#ffaa00}.d-hard{background:rgba(255,45,120,0.15);color:var(--pink)}.d-impossible{background:rgba(255,0,0,0.2);color:#ff4444}
@@ -53,42 +53,254 @@ h1{font-family:'Orbitron',sans-serif;font-size:28px;letter-spacing:4px;color:var
 .htitle{font-family:'Orbitron',sans-serif;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px}
 .hitem{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);padding:3px 0;border-bottom:1px solid rgba(160,32,240,0.1)}
 .footer{text-align:center;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--muted);padding:16px 0}
+.pool-note{font-family:'Share Tech Mono',monospace;font-size:10px;color:rgba(122,106,154,0.5);text-align:center;margin-top:8px}
 </style>
 </head>
 <body>
 <canvas id="grid-canvas"></canvas>
 <div class="app">
 <h1>LOOT::ROULETTE</h1>
-<div class="subtitle">FORTNITE LOADOUT RANDOMIZER // CH7 S2 // NEXUSFANG-TECH</div>
-<div class="slabel">Map</div>
-<div class="mbar"><button class="mbtn active" data-map="br">Battle Royale</button><button class="mbtn" data-map="pleasant">Reload: Pleasant Valley</button><button class="mbtn" data-map="oasis">Reload: Oasis</button><button class="mbtn" data-map="slurp">Reload: Slurp Rush</button><button class="mbtn" data-map="surf">Reload: Surf City</button></div>
-<div class="modbar"><button class="modbtn active" data-mode="solo">Solo</button><button class="modbtn" data-mode="squad">Squad</button></div>
-<div class="slots"><div class="slot"><div class="slot-label">Landing Spot</div><div class="slot-value" id="sd">—</div></div><div class="slot"><div class="slot-label">Primary</div><div class="slot-value" id="sw1">—</div><div id="sw1r"></div></div><div class="slot"><div class="slot-label">Secondary</div><div class="slot-value" id="sw2">—</div><div id="sw2r"></div></div><div class="slot"><div class="slot-label">Play Style</div><div class="slot-value" id="ss">—</div></div></div>
-<div class="ch"><div class="chlab">Bonus Challenge</div><div class="chtxt" id="cht">Spin to get your loadout</div><div id="chd"></div></div>
-<div class="squad" id="sq"><div class="sqc"><div class="sqn">Player 1</div><div class="sqr" id="p1">—</div><div class="sqd" id="p1d"></div></div><div class="sqc"><div class="sqn">Player 2</div><div class="sqr" id="p2">—</div><div class="sqd" id="p2d"></div></div><div class="sqc"><div class="sqn">Player 3</div><div class="sqr" id="p3">—</div><div class="sqd" id="p3d"></div></div></div>
-<div class="act"><button class="spinbtn" id="spin">Spin the Roulette</button><button class="abtn" id="respin">Re-spin One</button><button class="abtn" id="copy">Copy Loadout</button></div>
-<div id="hist" style="display:none"><div class="htitle">Previous Spins</div><div id="hl"></div></div>
-<div class="footer">LOOT::ROULETTE v2.0 // NexusFang-Tech</div>
+<div class="sub">FORTNITE LOADOUT RANDOMIZER // CH7 S2 SHOWDOWN // NEXUSFANG-TECH</div>
+<div class="slbl">Map</div>
+<div class="mbar">
+<button class="mbtn active" data-map="br">Battle Royale</button>
+<button class="mbtn" data-map="pleasant">Reload: Pleasant Valley</button>
+<button class="mbtn" data-map="oasis">Reload: Oasis</button>
+<button class="mbtn" data-map="slurp">Reload: Slurp Rush</button>
+<button class="mbtn" data-map="surf">Reload: Surf City</button>
 </div>
+<div class="modbar"><button class="modbtn active" data-mode="solo">Solo</button><button class="modbtn" data-mode="squad">Squad</button></div>
+<div class="slots">
+<div class="slot"><div class="slot-label">Landing Spot</div><div class="slot-value" id="sd">—</div></div>
+<div class="slot"><div class="slot-label">Primary</div><div class="slot-value" id="sw1">—</div><div id="sw1r"></div></div>
+<div class="slot"><div class="slot-label">Secondary</div><div class="slot-value" id="sw2">—</div><div id="sw2r"></div></div>
+<div class="slot"><div class="slot-label">Play Style</div><div class="slot-value" id="ss">—</div></div>
+</div>
+<div class="ch"><div class="chlbl">Bonus Challenge</div><div class="chtxt" id="cht">Spin to get your loadout</div><div id="chd"></div></div>
+<div class="squad" id="sq">
+<div class="sqc"><div class="sqn">Player 1</div><div class="sqr" id="p1">—</div><div class="sqd" id="p1d"></div></div>
+<div class="sqc"><div class="sqn">Player 2</div><div class="sqr" id="p2">—</div><div class="sqd" id="p2d"></div></div>
+<div class="sqc"><div class="sqn">Player 3</div><div class="sqr" id="p3">—</div><div class="sqd" id="p3d"></div></div>
+</div>
+<div class="act">
+<button class="spinbtn" id="spin">Spin the Roulette</button>
+<button class="abtn" id="respin">Re-spin One</button>
+<button class="abtn" id="copy">Copy Loadout</button>
+</div>
+<div id="hist" style="display:none"><div class="htitle">Previous Spins</div><div id="hl"></div></div>
+<div class="pool-note" id="poolnote"></div>
+<div class="footer">LOOT::ROULETTE v3.0 // NexusFang-Tech</div>
+</div>
+
 <script>
+// ============================================================
+// GRID BACKGROUND
+// ============================================================
 (function(){const c=document.getElementById('grid-canvas'),x=c.getContext('2d');function rs(){c.width=window.innerWidth;c.height=window.innerHeight}rs();window.addEventListener('resize',rs);let o=0;function d(){x.clearRect(0,0,c.width,c.height);const g=x.createLinearGradient(0,0,0,c.height);g.addColorStop(0,'#07000f');g.addColorStop(0.5,'#0d0020');g.addColorStop(1,'#120030');x.fillStyle=g;x.fillRect(0,0,c.width,c.height);x.strokeStyle='rgba(160,32,240,0.08)';x.lineWidth=1;for(let i=0;i<c.width;i+=40){x.beginPath();x.moveTo(i,0);x.lineTo(i,c.height);x.stroke()}const h=c.height*0.55;for(let y=0;y<30;y++){const t=(y+o%1)/30,yy=h+Math.pow(t,1.8)*(c.height-h);x.strokeStyle=`rgba(160,32,240,${0.04+t*0.12})`;x.beginPath();x.moveTo(0,yy);x.lineTo(c.width,yy);x.stroke()}const cx=c.width/2;for(let i=-15;i<=15;i++){const a=0.06-Math.abs(i)*0.003;if(a<=0)continue;x.strokeStyle=`rgba(0,238,255,${a})`;x.beginPath();x.moveTo(cx+i*120,h);x.lineTo(cx+i*200,c.height);x.stroke()}const sg=x.createRadialGradient(cx,h-60,10,cx,h-60,80);sg.addColorStop(0,'rgba(255,45,120,0.4)');sg.addColorStop(0.5,'rgba(160,32,240,0.15)');sg.addColorStop(1,'transparent');x.fillStyle=sg;x.fillRect(cx-100,h-150,200,150);o+=0.03;requestAnimationFrame(d)}d()})();
-const M={br:{name:'Battle Royale',drops:['Frigid Fortress','Latte Landing','Painted Palms','Wonkeeland','Tiptop Terrace','Sandy Strip','Fore Fields','Squibbly Shores','Dark Dominion','Humble Hills','Ripped Tides','Battlewood Boulevard','Sus Studios','New Sanctuary']},pleasant:{name:'Reload: Pleasant Valley',drops:['Lone Lodge','Pleasant Park','Snobby Shoals','Lil\' Loot Lake','Tilted Towers','Sandy Sheets','Retail Row','Dusty Docks','Lazy Laps']},oasis:{name:'Reload: Oasis',drops:['Snobby Sands','Fossil Fields','Lizard Links','Adobe Abodes','Twisted Trailers','Paradise Palms','Sunburnt Shafts','Guaco Town','Shady Springs']},slurp:{name:'Reload: Slurp Rush',drops:['Steamy Stacks','Boomin Base','Logjam Logging','Dirty Docks','Slurpy Swamp','Fort Crumpet','Stilt Town','Lockdown Lighthouse']},surf:{name:'Reload: Surf City',drops:['Divey Dam','Sweaty Shores','Battlewood Boulevard','Cashmere Cliffs','Sus Studios','Breaker Beach']}};
-const WP=[{n:'Assault Rifle',r:'common'},{n:'Assault Rifle',r:'rare'},{n:'Assault Rifle',r:'epic'},{n:'Shotgun',r:'uncommon'},{n:'Shotgun',r:'rare'},{n:'Shotgun',r:'legendary'},{n:'SMG',r:'common'},{n:'SMG',r:'rare'},{n:'SMG',r:'epic'},{n:'Sniper Rifle',r:'rare'},{n:'Sniper Rifle',r:'epic'},{n:'Sniper Rifle',r:'legendary'},{n:'Pistol',r:'common'},{n:'Pistol',r:'uncommon'},{n:'Rocket Launcher',r:'epic'},{n:'Rocket Launcher',r:'legendary'},{n:'Minigun',r:'epic'},{n:'Minigun',r:'legendary'},{n:'Tactical Shotgun',r:'uncommon'},{n:'Tactical Shotgun',r:'epic'},{n:'Burst AR',r:'rare'},{n:'Burst AR',r:'epic'},{n:'Hunting Rifle',r:'uncommon'},{n:'Hunting Rifle',r:'rare'},{n:'Revolver',r:'uncommon'},{n:'Revolver',r:'legendary'},{n:'Suppressed SMG',r:'rare'},{n:'Suppressed SMG',r:'epic'},{n:'DMR',r:'rare'},{n:'DMR',r:'epic'},{n:'DMR',r:'legendary'},{n:'Hammer AR',r:'uncommon'},{n:'Hammer AR',r:'epic'},{n:'Thunder Burst SMG',r:'rare'},{n:'Thunder Burst SMG',r:'mythic'}];
-const ST=['W-Key everything','Stealth rat','Zone camper','High ground lord','Bush wookie','Loot goblin','Pacifist until top 10','Spray and pray','Only hipfire','Sniper angles only','Vehicles only rotation','Storm surfer'];
-const bC=[{t:'Win with 0 builds/cover',d:'hard'},{t:'Win using only ground loot',d:'medium'},{t:'Win without a shotgun',d:'medium'},{t:'Get 10+ eliminations',d:'hard'},{t:'Win without healing',d:'impossible'},{t:'First POI only — no rotating',d:'hard'},{t:'Only first-chest weapons',d:'hard'},{t:'No sprinting allowed',d:'impossible'},{t:'Win using only pistols',d:'hard'},{t:'Carry a fishing rod all game',d:'easy'},{t:'Get a vehicle elim',d:'medium'},{t:'Win without storm damage',d:'medium'},{t:'Only engage from 50m+',d:'hard'},{t:'Pickaxe elim before guns unlock',d:'hard'},{t:'Only gray weapons all game',d:'hard'},{t:'Win by positioning only',d:'impossible'}];
-const rC=[{t:'Win with only ground loot',d:'medium'},{t:'Win without a shotgun',d:'medium'},{t:'Get 8+ elims in one life',d:'hard'},{t:'Win a round without healing',d:'hard'},{t:'Only hipfire all game',d:'hard'},{t:'Win using only pistols',d:'impossible'},{t:'No sprinting',d:'impossible'},{t:'Pickaxe elim first each round',d:'hard'},{t:'Only gray weapons',d:'hard'},{t:'Carry a fishing rod all game',d:'easy'},{t:'Win without dying once',d:'hard'},{t:'Only engage from 50m+',d:'hard'},{t:'Final elim with a sniper',d:'medium'},{t:'Hipfire sniper only',d:'impossible'},{t:'Win every round',d:'impossible'},{t:'Only use SMGs',d:'medium'}];
-const sC=[{t:'Squad splits POIs — reunite in zone',d:'hard'},{t:'Everyone same weapon type',d:'medium'},{t:'No markers or pings',d:'easy'},{t:'Sniper gets 3 knocks first',d:'hard'},{t:'One player support only',d:'hard'},{t:'Rotate as unit — no splitting',d:'easy'},{t:'No reviving — one life each',d:'hard'},{t:'Swap loadouts mid-game',d:'medium'}];
-const RL=[{r:'Shot Caller',d:'All rotation and fight calls'},{r:'Entry Fragger',d:'Pushes first every fight'},{r:'Support',d:'Heals, revives, cover fire'},{r:'Sniper',d:'Long-range only'},{r:'Loot Mule',d:'Drops best loot to team'},{r:'Scout',d:'Always 50m ahead'},{r:'Medic',d:'Must carry 3+ heals'},{r:'Chaos Agent',d:'Pushes every fight on sight'}];
-const rc={'common':'r-common','uncommon':'r-uncommon','rare':'r-rare','epic':'r-epic','legendary':'r-legendary','mythic':'r-mythic'};
-let cm='br',mode='solo',spinning=false,cur=null,hist=[];
-function R(a){return a[Math.floor(Math.random()*a.length)]}
-function gC(){let p=cm==='br'?[...bC]:[...rC];if(mode==='squad')p=p.concat(sC);return p}
-async function spin(){if(spinning)return;spinning=true;document.getElementById('spin').textContent='SPINNING...';const sl=document.querySelectorAll('.slot');sl.forEach(s=>{s.classList.add('spinning');s.classList.remove('locked')});const d=M[cm].drops,ch=gC();const res={drop:R(d),w1:R(WP),w2:R(WP),style:R(ST),ch:R(ch),map:M[cm].name};while(res.w2.n===res.w1.n&&res.w2.r===res.w1.r)res.w2=R(WP);const keys=['sd','sw1','sw2','ss'],delays=[500,800,1100,1400];for(let i=0;i<4;i++){const iv=setInterval(()=>{if(i===0)document.getElementById(keys[i]).textContent=R(d);else if(i<3)document.getElementById(keys[i]).textContent=R(WP).n;else document.getElementById(keys[i]).textContent=R(ST)},55);await new Promise(r=>setTimeout(r,delays[i]));clearInterval(iv);sl[i].classList.remove('spinning');sl[i].classList.add('locked');if(i===0)document.getElementById(keys[i]).textContent=res.drop;else if(i===1){document.getElementById(keys[i]).textContent=res.w1.n;document.getElementById('sw1r').innerHTML=`<span class="rarity ${rc[res.w1.r]}">${res.w1.r}</span>`}else if(i===2){document.getElementById(keys[i]).textContent=res.w2.n;document.getElementById('sw2r').innerHTML=`<span class="rarity ${rc[res.w2.r]}">${res.w2.r}</span>`}else document.getElementById(keys[i]).textContent=res.style}await new Promise(r=>setTimeout(r,200));document.getElementById('cht').textContent=res.ch.t;document.getElementById('chd').innerHTML=`<span class="diff d-${res.ch.d}">${res.ch.d}</span>`;if(mode==='squad'){const sh=[...RL].sort(()=>Math.random()-0.5);for(let i=1;i<=3;i++){document.getElementById('p'+i).textContent=sh[i-1].r;document.getElementById('p'+i+'d').textContent=sh[i-1].d}}cur=res;hist.unshift(`[${res.map}] ${res.drop} / ${res.w1.n} (${res.w1.r}) + ${res.w2.n} / ${res.style}`);if(hist.length>5)hist.pop();if(hist.length){document.getElementById('hist').style.display='block';document.getElementById('hl').innerHTML=hist.map(h=>`<div class="hitem">${h}</div>`).join('')}spinning=false;document.getElementById('spin').textContent='SPIN AGAIN'}
-document.getElementById('spin').addEventListener('click',spin);
-document.getElementById('respin').addEventListener('click',()=>{if(!cur||spinning)return;const d=M[cm].drops,i=Math.floor(Math.random()*4),sl=document.querySelectorAll('.slot')[i],keys=['sd','sw1','sw2','ss'],el=document.getElementById(keys[i]);sl.classList.remove('locked');sl.classList.add('spinning');const iv=setInterval(()=>{if(i===0)el.textContent=R(d);else if(i<3)el.textContent=R(WP).n;else el.textContent=R(ST)},55);setTimeout(()=>{clearInterval(iv);sl.classList.remove('spinning');sl.classList.add('locked');if(i===0){cur.drop=R(d);el.textContent=cur.drop}else if(i===1){cur.w1=R(WP);el.textContent=cur.w1.n;document.getElementById('sw1r').innerHTML=`<span class="rarity ${rc[cur.w1.r]}">${cur.w1.r}</span>`}else if(i===2){cur.w2=R(WP);el.textContent=cur.w2.n;document.getElementById('sw2r').innerHTML=`<span class="rarity ${rc[cur.w2.r]}">${cur.w2.r}</span>`}else{cur.style=R(ST);el.textContent=cur.style}},700)});
-document.getElementById('copy').addEventListener('click',()=>{if(!cur)return;navigator.clipboard?.writeText(`LOOT::ROULETTE [${cur.map}]\nDrop: ${cur.drop}\nPrimary: ${cur.w1.n} (${cur.w1.r})\nSecondary: ${cur.w2.n} (${cur.w2.r})\nStyle: ${cur.style}\nChallenge: ${cur.ch.t} [${cur.ch.d}]\nnexusfang-tech.github.io/loot-roulette`)});
-document.querySelectorAll('.mbtn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.mbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');cm=b.dataset.map})});
-document.querySelectorAll('.modbtn').forEach(b=>{b.addEventListener('click',()=>{document.querySelectorAll('.modbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');mode=b.dataset.mode;document.getElementById('sq').classList.toggle('show',mode==='squad')})});
+
+// ============================================================
+// WEAPON & MAP DATA — EDIT THESE ARRAYS TO UPDATE LOOT POOLS
+// ============================================================
+
+// BR weapons — Ch7 S2 "Showdown" loot pool (March 2026)
+// Only two guns survived from S1: Iron Pump + Twin Hammer
+// All weapons are hitscan this season
+const brWeapons = [
+  // Assault Rifles
+  {n:'Nemesis AR',r:'common'},{n:'Nemesis AR',r:'uncommon'},{n:'Nemesis AR',r:'rare'},{n:'Nemesis AR',r:'epic'},{n:'Nemesis AR',r:'legendary'},
+  {n:'Combat AR',r:'common'},{n:'Combat AR',r:'uncommon'},{n:'Combat AR',r:'rare'},{n:'Combat AR',r:'epic'},{n:'Combat AR',r:'legendary'},
+  // Shotguns
+  {n:'Iron Pump Shotgun',r:'common'},{n:'Iron Pump Shotgun',r:'uncommon'},{n:'Iron Pump Shotgun',r:'rare'},{n:'Iron Pump Shotgun',r:'epic'},{n:'Iron Pump Shotgun',r:'legendary'},
+  {n:'Twin Hammer Shotgun',r:'uncommon'},{n:'Twin Hammer Shotgun',r:'rare'},{n:'Twin Hammer Shotgun',r:'epic'},{n:'Twin Hammer Shotgun',r:'legendary'},
+  {n:'Chaos Reloader Shotgun',r:'uncommon'},{n:'Chaos Reloader Shotgun',r:'rare'},{n:'Chaos Reloader Shotgun',r:'epic'},{n:'Chaos Reloader Shotgun',r:'legendary'},
+  // SMGs
+  {n:'Thunder Burst SMG',r:'common'},{n:'Thunder Burst SMG',r:'uncommon'},{n:'Thunder Burst SMG',r:'rare'},{n:'Thunder Burst SMG',r:'epic'},{n:'Thunder Burst SMG',r:'legendary'},
+  {n:'Twin Mag SMG',r:'common'},{n:'Twin Mag SMG',r:'uncommon'},{n:'Twin Mag SMG',r:'rare'},{n:'Twin Mag SMG',r:'epic'},
+  // DMR / Sniper
+  {n:'Vector 7 DMR',r:'rare'},{n:'Vector 7 DMR',r:'epic'},{n:'Vector 7 DMR',r:'legendary'},
+  {n:'Lawful Tracking Rifle',r:'rare'},{n:'Lawful Tracking Rifle',r:'epic'},{n:'Lawful Tracking Rifle',r:'legendary'},
+  // Explosives
+  {n:'Bouncing Boomstick',r:'uncommon'},{n:'Bouncing Boomstick',r:'rare'},{n:'Bouncing Boomstick',r:'epic'},
+  // Showdown unlocks (Mythic/Exotic — rarer but in pool)
+  {n:'Ice King\'s Gauntlets',r:'mythic'},
+  {n:'Seven Power Gloves',r:'epic'},{n:'Seven Power Gloves',r:'legendary'},
+  {n:'Seven Cluster Cannon',r:'epic'},{n:'Seven Cluster Cannon',r:'legendary'},
+  {n:'Foundation\'s Rift Rifle',r:'exotic'},
+  {n:'Dark Voyager\'s Obliterator',r:'mythic'},
+];
+
+// Reload weapons — separate pool, mostly vaulted-in-BR classics
+// Updated around Ch7 S2 launch (March 2026)
+// Pool rotates with hotfixes — edit this array if guns get swapped
+const reloadWeapons = [
+  // Assault Rifles
+  {n:'Burst Assault Rifle',r:'common'},{n:'Burst Assault Rifle',r:'uncommon'},{n:'Burst Assault Rifle',r:'rare'},{n:'Burst Assault Rifle',r:'epic'},{n:'Burst Assault Rifle',r:'legendary'},
+  {n:'Infantry Rifle',r:'common'},{n:'Infantry Rifle',r:'uncommon'},{n:'Infantry Rifle',r:'rare'},{n:'Infantry Rifle',r:'epic'},{n:'Infantry Rifle',r:'legendary'},
+  {n:'Red-Eye AR',r:'uncommon'},{n:'Red-Eye AR',r:'rare'},{n:'Red-Eye AR',r:'epic'},
+  {n:'Striker Burst Rifle',r:'uncommon'},{n:'Striker Burst Rifle',r:'rare'},{n:'Striker Burst Rifle',r:'epic'},{n:'Striker Burst Rifle',r:'legendary'},
+  // Shotguns
+  {n:'Charge Shotgun',r:'common'},{n:'Charge Shotgun',r:'uncommon'},{n:'Charge Shotgun',r:'rare'},{n:'Charge Shotgun',r:'epic'},{n:'Charge Shotgun',r:'legendary'},
+  {n:'Sentinel Pump Shotgun',r:'uncommon'},{n:'Sentinel Pump Shotgun',r:'rare'},{n:'Sentinel Pump Shotgun',r:'epic'},{n:'Sentinel Pump Shotgun',r:'legendary'},
+  {n:'Ranger Shotgun',r:'uncommon'},{n:'Ranger Shotgun',r:'rare'},{n:'Ranger Shotgun',r:'epic'},
+  {n:'Monarch Pump Shotgun',r:'uncommon'},{n:'Monarch Pump Shotgun',r:'rare'},{n:'Monarch Pump Shotgun',r:'epic'},{n:'Monarch Pump Shotgun',r:'legendary'},
+  // SMGs
+  {n:'Twin Mag SMG',r:'common'},{n:'Twin Mag SMG',r:'uncommon'},{n:'Twin Mag SMG',r:'rare'},{n:'Twin Mag SMG',r:'epic'},
+  {n:'Red-Eye SMG',r:'uncommon'},{n:'Red-Eye SMG',r:'rare'},{n:'Red-Eye SMG',r:'epic'},
+  {n:'Stinger SMG',r:'common'},{n:'Stinger SMG',r:'uncommon'},{n:'Stinger SMG',r:'rare'},{n:'Stinger SMG',r:'epic'},
+  // DMR / Sniper
+  {n:'DMR',r:'rare'},{n:'DMR',r:'epic'},{n:'DMR',r:'legendary'},
+  {n:'Hunting Rifle',r:'uncommon'},{n:'Hunting Rifle',r:'rare'},{n:'Hunting Rifle',r:'epic'},
+  {n:'Lever Action Rifle',r:'uncommon'},{n:'Lever Action Rifle',r:'rare'},{n:'Lever Action Rifle',r:'epic'},{n:'Lever Action Rifle',r:'legendary'},
+  // Pistols
+  {n:'Six Shooter',r:'common'},{n:'Six Shooter',r:'uncommon'},{n:'Six Shooter',r:'rare'},
+  {n:'Marksman Six Shooter',r:'uncommon'},{n:'Marksman Six Shooter',r:'rare'},{n:'Marksman Six Shooter',r:'epic'},
+  {n:'Hand Cannon',r:'epic'},{n:'Hand Cannon',r:'legendary'},
+  // Morphite (evolves rarity with damage)
+  {n:'Morphite AR',r:'common'},{n:'Morphite Shotgun',r:'common'},{n:'Morphite SMG',r:'common'},
+  // Mobility
+  {n:'Grappler',r:'epic'},
+];
+
+// POIs per map
+const maps = {
+  br: {
+    name: 'Battle Royale',
+    drops: ['Frigid Fortress','Latte Landing','Painted Palms','Wonkeeland','Tiptop Terrace','Sandy Strip','Fore Fields','Squibbly Shores','Dark Dominion','Humble Hills','Ripped Tides','Battlewood Boulevard','Sus Studios','New Sanctuary'],
+    weapons: brWeapons
+  },
+  pleasant: {
+    name: 'Reload: Pleasant Valley',
+    drops: ['Lone Lodge','Pleasant Park','Snobby Shoals','Lil\' Loot Lake','Tilted Towers','Sandy Sheets','Retail Row','Dusty Docks','Lazy Laps'],
+    weapons: reloadWeapons
+  },
+  oasis: {
+    name: 'Reload: Oasis',
+    drops: ['Snobby Sands','Fossil Fields','Lizard Links','Adobe Abodes','Twisted Trailers','Paradise Palms','Sunburnt Shafts','Guaco Town','Shady Springs'],
+    weapons: reloadWeapons
+  },
+  slurp: {
+    name: 'Reload: Slurp Rush',
+    drops: ['Steamy Stacks','Boomin Base','Logjam Logging','Dirty Docks','Slurpy Swamp','Fort Crumpet','Stilt Town','Lockdown Lighthouse'],
+    weapons: reloadWeapons
+  },
+  surf: {
+    name: 'Reload: Surf City',
+    drops: ['Divey Dam','Sweaty Shores','Battlewood Boulevard','Cashmere Cliffs','Sus Studios','Breaker Beach'],
+    weapons: reloadWeapons
+  }
+};
+
+// Play styles (mode-agnostic)
+const styles = ['W-Key everything','Stealth rat','Zone camper','High ground lord','Bush wookie','Loot goblin','Pacifist until top 10','Spray and pray','Only hipfire','Sniper angles only','Vehicles only rotation','Storm surfer'];
+
+// Challenges — split by mode type
+const brChallenges = [
+  {t:'Win with 0 builds/cover',d:'hard'},{t:'Win using only ground loot',d:'medium'},{t:'Win without a shotgun',d:'medium'},
+  {t:'Get 10+ eliminations',d:'hard'},{t:'Win without healing',d:'impossible'},{t:'First POI only — no rotating',d:'hard'},
+  {t:'Only first-chest weapons',d:'hard'},{t:'No sprinting allowed',d:'impossible'},{t:'Win using only pistols',d:'hard'},
+  {t:'Carry a fishing rod all game',d:'easy'},{t:'Get a vehicle elim',d:'medium'},{t:'Win without storm damage',d:'medium'},
+  {t:'Only engage from 50m+',d:'hard'},{t:'Pickaxe elim before guns unlock',d:'hard'},{t:'Only gray weapons all game',d:'hard'},
+  {t:'Win by positioning only',d:'impossible'},{t:'Win a Rivalry duel with only a DMR',d:'hard'},{t:'Bouncing Boomstick elim from 30m+',d:'hard'},
+  {t:'Win without using an AR',d:'medium'},{t:'Only use Chaos Reloader all game',d:'hard'}
+];
+const reloadChallenges = [
+  {t:'Win with only ground loot',d:'medium'},{t:'Win without a shotgun',d:'medium'},{t:'Get 8+ elims in one life',d:'hard'},
+  {t:'Win a round without healing',d:'hard'},{t:'Only hipfire all game',d:'hard'},{t:'Win using only pistols',d:'impossible'},
+  {t:'No sprinting',d:'impossible'},{t:'Pickaxe elim first each round',d:'hard'},{t:'Only gray/Morphite weapons',d:'hard'},
+  {t:'Carry a fishing rod all game',d:'easy'},{t:'Win without dying once',d:'hard'},{t:'Only engage from 50m+',d:'hard'},
+  {t:'Final elim with a sniper',d:'medium'},{t:'Hipfire sniper only',d:'impossible'},{t:'Win every round',d:'impossible'},
+  {t:'Only use SMGs',d:'medium'},{t:'Hand Cannon only all game',d:'hard'},{t:'Morphite weapons only — evolve to Legendary',d:'hard'},
+  {t:'Six Shooter elim each round',d:'hard'},{t:'Charge Shotgun only — full charge every shot',d:'medium'}
+];
+const squadChallenges = [
+  {t:'Squad splits POIs — reunite in zone',d:'hard'},{t:'Everyone same weapon type',d:'medium'},
+  {t:'No markers or pings',d:'easy'},{t:'Designated sniper gets 3 knocks first',d:'hard'},
+  {t:'One player support only — no shooting',d:'hard'},{t:'Rotate as unit — no splitting',d:'easy'},
+  {t:'No reviving — one life each',d:'hard'},{t:'Swap loadouts with teammate mid-game',d:'medium'}
+];
+
+// Squad roles
+const roles = [
+  {r:'Shot Caller',d:'All rotation and fight calls'},{r:'Entry Fragger',d:'Pushes first every fight'},
+  {r:'Support',d:'Heals, revives, cover fire'},{r:'Sniper',d:'Long-range only'},
+  {r:'Loot Mule',d:'Drops best loot to team'},{r:'Scout',d:'Always 50m ahead'},
+  {r:'Medic',d:'Must carry 3+ heals'},{r:'Chaos Agent',d:'Pushes every fight on sight'}
+];
+
+// ============================================================
+// GAME LOGIC
+// ============================================================
+const rc = r => 'r-' + r;
+let cm = 'br', mode = 'solo', spinning = false, cur = null, hist = [];
+function R(a) { return a[Math.floor(Math.random() * a.length)]; }
+function getWeapons() { return maps[cm].weapons; }
+function getChallenges() {
+  let p = cm === 'br' ? [...brChallenges] : [...reloadChallenges];
+  if (mode === 'squad') p = p.concat(squadChallenges);
+  return p;
+}
+function updatePoolNote() {
+  const isBR = cm === 'br';
+  document.getElementById('poolnote').textContent = isBR
+    ? 'BR loot pool: Ch7 S2 Showdown (Mar 2026) — all hitscan'
+    : 'Reload loot pool: Ch7 S2 (Mar 2026) — rotates with hotfixes';
+}
+updatePoolNote();
+
+async function spin() {
+  if (spinning) return; spinning = true;
+  document.getElementById('spin').textContent = 'SPINNING...';
+  const sl = document.querySelectorAll('.slot');
+  sl.forEach(s => { s.classList.add('spinning'); s.classList.remove('locked'); });
+  const wp = getWeapons(), dr = maps[cm].drops, ch = getChallenges();
+  const res = { drop: R(dr), w1: R(wp), w2: R(wp), style: R(styles), ch: R(ch), map: maps[cm].name };
+  while (res.w2.n === res.w1.n && res.w2.r === res.w1.r) res.w2 = R(wp);
+  const keys = ['sd','sw1','sw2','ss'], delays = [500, 800, 1100, 1400];
+  for (let i = 0; i < 4; i++) {
+    const iv = setInterval(() => {
+      if (i === 0) document.getElementById(keys[i]).textContent = R(dr);
+      else if (i < 3) document.getElementById(keys[i]).textContent = R(wp).n;
+      else document.getElementById(keys[i]).textContent = R(styles);
+    }, 55);
+    await new Promise(r => setTimeout(r, delays[i])); clearInterval(iv);
+    sl[i].classList.remove('spinning'); sl[i].classList.add('locked');
+    if (i === 0) document.getElementById(keys[i]).textContent = res.drop;
+    else if (i === 1) { document.getElementById(keys[i]).textContent = res.w1.n; document.getElementById('sw1r').innerHTML = `<span class="rarity ${rc(res.w1.r)}">${res.w1.r}</span>`; }
+    else if (i === 2) { document.getElementById(keys[i]).textContent = res.w2.n; document.getElementById('sw2r').innerHTML = `<span class="rarity ${rc(res.w2.r)}">${res.w2.r}</span>`; }
+    else document.getElementById(keys[i]).textContent = res.style;
+  }
+  await new Promise(r => setTimeout(r, 200));
+  document.getElementById('cht').textContent = res.ch.t;
+  document.getElementById('chd').innerHTML = `<span class="diff d-${res.ch.d}">${res.ch.d}</span>`;
+  if (mode === 'squad') { const sh = [...roles].sort(() => Math.random() - 0.5); for (let i = 1; i <= 3; i++) { document.getElementById('p'+i).textContent = sh[i-1].r; document.getElementById('p'+i+'d').textContent = sh[i-1].d; } }
+  cur = res;
+  hist.unshift(`[${res.map}] ${res.drop} / ${res.w1.n} (${res.w1.r}) + ${res.w2.n} / ${res.style}`);
+  if (hist.length > 5) hist.pop();
+  if (hist.length) { document.getElementById('hist').style.display = 'block'; document.getElementById('hl').innerHTML = hist.map(h => `<div class="hitem">${h}</div>`).join(''); }
+  spinning = false; document.getElementById('spin').textContent = 'SPIN AGAIN';
+}
+
+document.getElementById('spin').addEventListener('click', spin);
+document.getElementById('respin').addEventListener('click', () => {
+  if (!cur || spinning) return;
+  const wp = getWeapons(), dr = maps[cm].drops, i = Math.floor(Math.random() * 4);
+  const sl = document.querySelectorAll('.slot')[i], keys = ['sd','sw1','sw2','ss'], el = document.getElementById(keys[i]);
+  sl.classList.remove('locked'); sl.classList.add('spinning');
+  const iv = setInterval(() => { if (i === 0) el.textContent = R(dr); else if (i < 3) el.textContent = R(wp).n; else el.textContent = R(styles); }, 55);
+  setTimeout(() => {
+    clearInterval(iv); sl.classList.remove('spinning'); sl.classList.add('locked');
+    if (i === 0) { cur.drop = R(dr); el.textContent = cur.drop; }
+    else if (i === 1) { cur.w1 = R(wp); el.textContent = cur.w1.n; document.getElementById('sw1r').innerHTML = `<span class="rarity ${rc(cur.w1.r)}">${cur.w1.r}</span>`; }
+    else if (i === 2) { cur.w2 = R(wp); el.textContent = cur.w2.n; document.getElementById('sw2r').innerHTML = `<span class="rarity ${rc(cur.w2.r)}">${cur.w2.r}</span>`; }
+    else { cur.style = R(styles); el.textContent = cur.style; }
+  }, 700);
+});
+document.getElementById('copy').addEventListener('click', () => {
+  if (!cur) return;
+  navigator.clipboard?.writeText(`LOOT::ROULETTE [${cur.map}]\nDrop: ${cur.drop}\nPrimary: ${cur.w1.n} (${cur.w1.r})\nSecondary: ${cur.w2.n} (${cur.w2.r})\nStyle: ${cur.style}\nChallenge: ${cur.ch.t} [${cur.ch.d}]\nnexusfang-tech.github.io/loot-roulette`);
+});
+document.querySelectorAll('.mbtn').forEach(b => { b.addEventListener('click', () => { document.querySelectorAll('.mbtn').forEach(x => x.classList.remove('active')); b.classList.add('active'); cm = b.dataset.map; updatePoolNote(); }); });
+document.querySelectorAll('.modbtn').forEach(b => { b.addEventListener('click', () => { document.querySelectorAll('.modbtn').forEach(x => x.classList.remove('active')); b.classList.add('active'); mode = b.dataset.mode; document.getElementById('sq').classList.toggle('show', mode === 'squad'); }); });
 </script>
 </body>
 </html>
