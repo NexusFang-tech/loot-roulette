@@ -1,36 +1,32 @@
 # LOOT::ROULETTE — Fortnite Loadout Randomizer
 
-Slot-machine-style loadout randomizer for Fortnite. Spin for a random landing spot, primary weapon, secondary weapon, play style, and bonus challenge. Supports solo and squad mode with role assignments. Great stream content.
+Slot-machine-style loadout randomizer for Fortnite Chapter 7 Season 2. Spin for a random landing spot, primary weapon, secondary weapon, play style, and bonus challenge. Supports all current maps (BR + 4 Reload maps) with mode-aware challenges for solo and squad play.
 
 ## Live Demo
 
 **[nexusfang-tech.github.io/loot-roulette](https://nexusfang-tech.github.io/loot-roulette)**
 
+## Maps
+
+| Map | POIs |
+|-----|------|
+| **Battle Royale** | Frigid Fortress, Latte Landing, Painted Palms, Wonkeeland, Tiptop Terrace, Sandy Strip, Fore Fields, Squibbly Shores, Dark Dominion, Humble Hills, Ripped Tides, Battlewood Boulevard, Sus Studios, New Sanctuary |
+| **Reload: Pleasant Valley** | Lone Lodge, Pleasant Park, Snobby Shoals, Lil' Loot Lake, Tilted Towers, Sandy Sheets, Retail Row, Dusty Docks, Lazy Laps |
+| **Reload: Oasis** | Snobby Sands, Fossil Fields, Lizard Links, Adobe Abodes, Twisted Trailers, Paradise Palms, Sunburnt Shafts, Guaco Town, Shady Springs |
+| **Reload: Slurp Rush** | Steamy Stacks, Boomin Base, Logjam Logging, Dirty Docks, Slurpy Swamp, Fort Crumpet, Stilt Town, Lockdown Lighthouse |
+| **Reload: Surf City** | Divey Dam, Sweaty Shores, Battlewood Boulevard, Cashmere Cliffs, Sus Studios, Breaker Beach |
+
 ## Features
 
-- **4-slot roulette** — landing spot, primary weapon (with rarity), secondary weapon, and play style spin independently with staggered lock-in animation
-- **Bonus challenge** — every spin includes a difficulty-rated challenge (easy/medium/hard/impossible)
-- **Squad mode** — assigns unique roles to 3 squad members (shot caller, entry fragger, support, sniper, loot mule, scout, medic, chaos agent)
-- **Re-spin** — randomly re-rolls a single slot if you don't like one pick
-- **Copy loadout** — copies the full loadout to clipboard for pasting in Discord/chat
-- **Spin history** — tracks your last 5 loadouts
-- **28 landing spots** spanning classic and current POIs
-- **37 weapons** across 6 rarity tiers (common through mythic)
-- **12 play styles** from sweaty to meme
-- **20 challenges** from casual to literally impossible
-
-## Squad Roles
-
-| Role | Description |
-|------|-------------|
-| Shot Caller | Makes all rotation and fight decisions |
-| Entry Fragger | Pushes first into every fight |
-| Support | Carries heals, revives, provides cover |
-| Sniper | Only takes long-range engagements |
-| Loot Mule | Drops best loot to teammates |
-| Scout | Always 50m ahead of the squad |
-| Medic | Must carry 3 heals at all times |
-| Chaos Agent | Must push every fight they see |
+- **5 maps** with accurate Ch7 S2 POIs
+- **Mode-aware challenges** — BR challenges differ from Reload challenges; squad mode adds squad-specific challenges
+- **4-slot roulette** — landing spot, primary (with rarity), secondary, and play style spin with staggered lock-in
+- **Squad mode** — assigns roles (shot caller, entry fragger, support, sniper, loot mule, scout, medic, chaos agent)
+- **Re-spin** — re-rolls a random single slot
+- **Copy loadout** — clipboard output with map name and portfolio URL
+- **Spin history** — last 5 spins with map labels
+- **35 weapons** across 6 rarity tiers (common through mythic)
+- **12 play styles** and **40+ challenges** across difficulty tiers
 
 ## Tech Stack
 
